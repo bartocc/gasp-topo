@@ -13,6 +13,7 @@ document.observe("dom:loaded", function() {
 });
 
 function foo(altitude, context) {
+  alert(altitude); // => undefined
   alert(context); // => undefined
 }
 

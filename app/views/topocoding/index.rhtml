@@ -1,1 +1,10 @@
-topocoding index
+<script type="text/javascript" src="http://topocoding.com/api/getapi_v1.php?key=NBOJQVHAWKVLRUG"></script>
+
+<% form_tag 'javascript: controller.topocode();' do -%>
+  from : <%= text_field_tag "from" %><br />
+  to : <%= text_field_tag "to" %><br />
+  <%= submit_tag "go !" %>
+<% end -%>
+
+<div id="map" style="display: none;"></div>
+<div id="values"></div>

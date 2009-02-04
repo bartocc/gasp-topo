@@ -7,7 +7,14 @@ document.observe("dom:loaded", function() {
   // set the map
   var map = new GMap2($('map'));
   map.setCenter(new GLatLng(44.013655, 1.278026), 13);
+  
+  topoGetAltitude(46, 1, foo, 'bar');
+  
 });
+
+function foo(altitude, context) {
+  alert(context); // => undefined
+}
 
 var controller = {
   

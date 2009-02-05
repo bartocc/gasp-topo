@@ -48,11 +48,13 @@ namespace :deploy do
   
   desc "Creates database.yml in shared/config"
   task :database_config do
-    database_configuration = {
-      :adapter => "mysql",
-      :database => "gasp-topo_production",
-      :username => "root",
-      :password => nil
+    database_configuration = {"production" =>
+      {
+        "adapter" => "mysql",
+        "database" => "gasp-topo_production",
+        "username" => "root",
+        "password" => "mysql"
+      }
     }
     put YAML.dump(database_configuration), "#{deploy_to}/#{shared_dir}/config/database.yml"
   end

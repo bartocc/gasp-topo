@@ -28,5 +28,38 @@ role :db,  "cruxandco.com", :primary => true
 # Callbacks
 ###########
 
+after "deploy:setup", "deploy:shared_dirs", "deploy:database_config"
+before "deploy:symlink", "deploy:symlink_database_conf"
+
 # Recipes
 #########
+
+namespace :deploy do
+
+  desc "Restarts your application."
+  task :restart do
+    run "touch #{current_path}/tmp/restart.txt"
+  end
+  
+  desc "Creates the shared directories for the application"
+  task :shared_dirs do
+    run "mkdir -p #{deploy_to}/#{shared_dir}/config"
+  end
+  
+  desc "Creates database.yml in shared/config"
+  task :database_config do
+    database_configuration = {
+      :adapter => "mysql",
+      :database => "gasp-topo_production",
+      :username => "root",
+      :password => nil
+    }
+    put YAML.dump(database_configuration), "#{deploy_to}/#{shared_dir}/config/database.yml"
+  end
+  
+  desc "Symlinks the shared directories for the new 'release_path'"
+  task :symlink_database_conf do
+    run "ln -nfs #{deploy_to}/#{shared_dir}/config/database.yml #{release_path}/config/database.yml" 
+  end
+
+end

@@ -24,13 +24,13 @@ var controller = {
     for (i=0 ; i < num_steps ; i++) {
       var step = route.getStep(i);
       var coords = step.getLatLng();
-      topoGetAltitude(coords.lat(), coords.lng(), this.topocodeCallback.bind(this));
+      topoGetAltitude(coords.lat(), coords.lng(), this.topocodeCallback.bind(this), step);
     }
     
   },
   
-  topocodeCallback: function(altitude, context) {
-    $('values').innerHTML += (altitude + 'm<br />');
+  topocodeCallback: function(altitude, step) {
+    $('values').innerHTML += (step.getDistance().meters + '\t' + altitude + '<br />');
   }
   
 }

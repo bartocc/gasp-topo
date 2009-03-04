@@ -1,0 +1,27 @@
+%script{:type => "text/javascript", :src => "http://topocoding.com/api/getapi_v1.php?key=#{@keys[:topo]}"}
+
+- form_tag 'javascript: controller.topocode();' do
+
+  %table#from_to{:border => "0", :cellspacing => "0", :cellpadding => "0"}
+    %tr
+      %td.lb from
+      %td= text_field_tag "from"
+
+    %tr
+      %td.lb to
+      %td= text_field_tag "to"
+
+    %tr
+      %td= submit_tag "go !"
+
+%div#map
+
+%table#values{:border => "0", :cellspacing => "0", :cellpadding => "0", :style => "display: none"}
+
+  %tr
+    %th distance (m)
+    %th altitude (m)
+    %th durée (sec)
+    
+%div#spinner{:style => "display: none"}
+  %img{:src => "/images/spinner.gif"}

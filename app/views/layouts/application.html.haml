@@ -12,5 +12,15 @@
       :src => "http://maps.google.com/maps?file=api&amp;v=2&amp;key=#{@keys[:maps]}" |
     } |
     
+    / stylesheets
+    = stylesheet_link_tag "application"
+    
   %body
-    = yield
+  
+    %div#container
+  
+      %div#header
+        %h1 Topocoding for Students ;-)
+  
+      %div#content
+        = yield

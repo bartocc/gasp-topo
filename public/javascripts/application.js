@@ -65,9 +65,10 @@ var controller = {
     this.steps_alti.each(function(sa) {
       var step = sa[0];
       var alti = sa[1];
+      var duration = step.getDuration().seconds;
       total_distance += step.getDistance().meters;
       
-      $('values').innerHTML += (total_distance + ' ; ' + alti + '<br />');
+      $('values').innerHTML += (total_distance + ' ; ' + alti + ' ; ' + duration + '<br />');
     });
     
   }

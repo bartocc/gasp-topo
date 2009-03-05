@@ -44,7 +44,7 @@ function topocodeFinished() {
 
 function displayValues() {
   var total_distance = 0;
-  var lines;
+  var lines = "";
   
   $(steps_alti_ary).each(function(i) {
     var sa = steps_alti_ary[i];

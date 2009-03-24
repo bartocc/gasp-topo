@@ -53,7 +53,7 @@ function displayValues() {
     var duration = step.getDuration().seconds;
     total_distance += step.getDistance().meters;
     
-    lines += "<tr><td>" + total_distance + "</td><td>" + alti + "</td><td>" + duration+ "</td></tr>";
+    lines += total_distance + ";" + alti + ";" + duration+ "<br />";
   });
   
   $('#values').append(lines).show('blind');
@@ -79,7 +79,7 @@ var controller = {
     $("#spinner").show();
   
     // flush former values
-    $('#values').html('<tr><th>distance (m)</th><th>altitude (m)</th><th>durée (sec)</th></tr>');
+    $('#values').html('distance (m);altitude (m);durée (sec)<br />');
     this.gdir.clear();
     this.steps_alti = [];
     // 

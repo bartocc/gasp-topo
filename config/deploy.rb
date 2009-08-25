@@ -3,27 +3,33 @@
 
 default_run_options[:pty] = true
 
-# from gem josh-slicehost
-require 'capistrano/ext/slicehost'
+# Capistrano multistages
+set :stages, %w(ppd production)
+require 'capistrano/ext/multistage'
 
 # Config
 ########
 
 set :application, "gasp-topo"
-set :repository, "git@github.com:cruxandco/gasp-topo.git"
+
 set :scm, :git
+set :scm_command, "/opt/local/bin/git"
+set :local_scm_command, "git"
+set :repository, "git@github.com:cruxandco/gasp-topo.git"
 set :branch, "master"
 
 set :user, "deploy"
-ssh_options[:port] = 3456
-
-set :deploy_to do "/home/#{user}/apps/production/#{application}" end
+set :deploy_to do "/Users/deploy/apps/#{application}" end
 set :deploy_via, :remote_cache
 set :use_sudo, false
 
-role :app, "cruxandco.com"
-role :web, "cruxandco.com"
-role :db,  "cruxandco.com", :primary => true
+set :rake, "/opt/ruby-enterprise-1.8.6-20090610/bin/rake"
+
+role :app, "yaniro.cruxandco.com"
+role :web, "yaniro.cruxandco.com"
+role :db,  "yaniro.cruxandco.com", :primary => true
+
+ssh_options[:forward_agent] = true
 
 # Callbacks
 ###########
@@ -48,15 +54,7 @@ namespace :deploy do
   
   desc "Creates database.yml in shared/config"
   task :database_config do
-    database_configuration = {"production" =>
-      {
-        "adapter" => "mysql",
-        "database" => "gasp-topo_production",
-        "username" => "root",
-        "password" => "mysql"
-      }
-    }
-    put YAML.dump(database_configuration), "#{deploy_to}/#{shared_dir}/config/database.yml"
+    put database_configuration, "#{deploy_to}/#{shared_dir}/config/database.yml"
   end
   
   desc "Symlinks the shared directories for the new 'release_path'"
